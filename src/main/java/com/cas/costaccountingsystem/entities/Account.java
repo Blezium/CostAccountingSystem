@@ -5,32 +5,55 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
-@Table(name="account")
+@Table(schema = "public", name = "account")
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private Long id;
 
-    @Column(name="nickname", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private String nickname;
 
-    @Column(name="first_name")
+    @Column(nullable = false)
     private String firstName;
 
-    @Column(name="second_name")
+    @Column(nullable = false)
     private String secondName;
 
-    @Column(name="password", nullable = false)
+    @Column(nullable = false)
     private String password;
 
-    @Column(name="email", nullable = false)
+    @Column(nullable = false)
     private String email;
 
-    @Column(name="type", nullable = false)
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime initializedAt;
+
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+
+    @Column(name = "account_type", nullable = false, length = 12)
     @Enumerated(EnumType.STRING)
     private AccountType type;
+
+    public Account(Long id, String nickname, String firstName, String secondName, String password, String email, LocalDateTime initializedAt, LocalDateTime updatedAt, AccountType type) {
+        this.id = id;
+        this.nickname = nickname;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.password = password;
+        this.email = email;
+        this.initializedAt = initializedAt;
+        this.updatedAt = updatedAt;
+        this.type = type;
+    }
+
+    public Account() {
+    }
 }
