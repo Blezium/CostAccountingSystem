@@ -17,13 +17,19 @@ public class Cost {
     private Long id;
 
     @Column(nullable = false)
-    private Long price;
+    private double price;
+
+    @Column(nullable = false)
+    private String currency;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime initializedAt;
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    @ManyToOne
+    private Project project;
 
     public Cost(Long id, Long price, LocalDateTime initializedAt, LocalDateTime updatedAt) {
         this.id = id;

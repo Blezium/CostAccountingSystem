@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -38,9 +39,12 @@ public class Account {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    @Column(name = "account_type", nullable = false, length = 12)
+    @Column(nullable = false, length = 12)
     @Enumerated(EnumType.STRING)
     private AccountType type;
+
+    @ManyToMany
+    private List<Project> projects;
 
     public Account(Long id, String nickname, String firstName, String secondName, String password, String email, LocalDateTime initializedAt, LocalDateTime updatedAt, AccountType type) {
         this.id = id;
