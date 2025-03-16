@@ -2,7 +2,9 @@ package com.cas.costaccountingsystem.entities;
 
 import com.cas.costaccountingsystem.ProjectType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(schema="public", name="project")
 public class Project {
@@ -34,18 +38,13 @@ public class Project {
     @Enumerated(EnumType.STRING)
     private ProjectType projectType;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "projects")
     private List<Account> accounts;
 
-    @OneToMany
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
+            mappedBy = "project"
+    )
     private List<Cost> costs;
-
-    public Project(Long id, LocalDateTime initializedAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.initializedAt = initializedAt;
-        this.updatedAt = updatedAt;
-    }
-
-    public Project() {
-    }
 }

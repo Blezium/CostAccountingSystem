@@ -1,8 +1,11 @@
 package com.cas.costaccountingsystem.entities;
 
 import com.cas.costaccountingsystem.AccountType;
+import com.cas.costaccountingsystem.FullName;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -10,6 +13,8 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(schema = "public", name = "account")
 public class Account {
@@ -22,7 +27,8 @@ public class Account {
     private String nickname;
 
     @Column(nullable = false)
-    private String firstName;
+    @Embedded
+    private FullName fullName;
 
     @Column(nullable = false)
     private String secondName;
@@ -43,21 +49,15 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private AccountType type;
 
-    @ManyToMany
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
+    )
+    @JoinTable(
+            schema = "public",
+            name= "project_account",
+            joinColumns = @JoinColumn(name= "project_id"),
+            inverseJoinColumns = @JoinColumn(name= "account_id")
+    )
     private List<Project> projects;
-
-    public Account(Long id, String nickname, String firstName, String secondName, String password, String email, LocalDateTime initializedAt, LocalDateTime updatedAt, AccountType type) {
-        this.id = id;
-        this.nickname = nickname;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.password = password;
-        this.email = email;
-        this.initializedAt = initializedAt;
-        this.updatedAt = updatedAt;
-        this.type = type;
-    }
-
-    public Account() {
-    }
 }

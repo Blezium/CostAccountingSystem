@@ -1,13 +1,17 @@
 package com.cas.costaccountingsystem.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(schema="public", name="cost")
 public class Cost {
@@ -28,16 +32,12 @@ public class Cost {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,  optional = true)
+    @JoinTable(
+            schema = "public",
+            name = "project_cost",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "cost_id")
+    )
     private Project project;
-
-    public Cost(Long id, Long price, LocalDateTime initializedAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.price = price;
-        this.initializedAt = initializedAt;
-        this.updatedAt = updatedAt;
-    }
-
-    public Cost() {
-    }
 }
