@@ -31,9 +31,6 @@ public class Account {
     private FullName fullName;
 
     @Column(nullable = false)
-    private String secondName;
-
-    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
