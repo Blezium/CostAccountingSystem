@@ -1,13 +1,13 @@
 package com.cas.services;
 
-import com.cas.repositories.AccountRepository;
+import com.cas.repositories.CostRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AccountService {
+public class CostService {
     @NonNull
-    private AccountRepository repository;
+    private CostRepository repository;
 }
