@@ -1,6 +1,6 @@
-package com.cas.services;
+package com.cas.costaccountingsystem.services;
 
-import com.cas.repositories.AccountRepository;
+import com.cas.costaccountingsystem.repositories.AccountRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

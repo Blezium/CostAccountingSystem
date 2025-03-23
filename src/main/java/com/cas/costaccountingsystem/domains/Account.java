@@ -1,7 +1,5 @@
-package com.cas.costaccountingsystem.entities;
+package com.cas.costaccountingsystem.domains;
 
-import com.cas.costaccountingsystem.AccountType;
-import com.cas.costaccountingsystem.FullName;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

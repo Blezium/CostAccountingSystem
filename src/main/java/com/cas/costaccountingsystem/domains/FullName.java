@@ -1,4 +1,4 @@
-package com.cas.costaccountingsystem;
+package com.cas.costaccountingsystem.domains;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
