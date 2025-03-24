@@ -16,6 +16,7 @@ import java.util.List;
 @Entity
 @Table(schema = "public", name = "account")
 public class Account {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
@@ -43,7 +44,6 @@ public class Account {
     @Column(nullable = false, length = 12)
     @Enumerated(EnumType.STRING)
     private AccountType type;
-
     @ManyToMany(
             fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
