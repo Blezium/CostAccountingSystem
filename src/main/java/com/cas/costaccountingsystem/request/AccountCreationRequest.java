@@ -10,7 +10,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -35,6 +34,4 @@ public class AccountCreationRequest {
     private LocalDateTime updatedAt;
 
     private AccountType type;
-
-    private List<Long> projectsIds;
 }

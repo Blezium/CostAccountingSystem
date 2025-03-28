@@ -12,6 +12,8 @@ public class CostDto {
 
     private String currency;
 
+    private String description;
+
     private LocalDateTime initializedAt;
 
     private LocalDateTime updatedAt;

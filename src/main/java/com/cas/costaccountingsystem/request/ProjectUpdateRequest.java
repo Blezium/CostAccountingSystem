@@ -7,9 +7,9 @@ import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-@Setter
 @Getter
-public class ProjectCreationRequest {
+@Setter
+public class ProjectUpdateRequest {
     @NotEmpty(message = "Title can not be empty")
     private String title;
 
@@ -18,4 +18,6 @@ public class ProjectCreationRequest {
     private ProjectType projectType;
 
     private List<Long> accountsIds;
+
+    private List<Long> costsIds;
 }

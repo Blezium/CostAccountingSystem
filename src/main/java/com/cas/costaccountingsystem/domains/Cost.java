@@ -26,13 +26,16 @@ public class Cost {
     @Column(nullable = false)
     private String currency;
 
+    @Column(nullable = false)
+    private String description;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime initializedAt;
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY,  optional = true)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinTable(
             schema = "public",
             name = "project_cost",
