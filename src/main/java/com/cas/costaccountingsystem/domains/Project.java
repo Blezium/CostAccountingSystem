@@ -1,6 +1,5 @@
-package com.cas.costaccountingsystem.entities;
+package com.cas.costaccountingsystem.domains;
 
-import com.cas.costaccountingsystem.ProjectType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,7 +41,7 @@ public class Project {
     private List<Account> accounts;
 
     @OneToMany(
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
             mappedBy = "project"
     )
