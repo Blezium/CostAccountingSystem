@@ -1,5 +1,6 @@
 package com.cas.costaccountingsystem.services;
 
+import com.cas.costaccountingsystem.domains.Account;
 import com.cas.costaccountingsystem.domains.Project;
 import com.cas.costaccountingsystem.dto.ProjectDto;
 import com.cas.costaccountingsystem.mappers.ProjectMapper;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -20,13 +22,15 @@ public class ProjectService {
 
     public ProjectDto create(ProjectCreationRequest request) {
         Project project = new Project();
+
         project.setTitle(request.getTitle());
         project.setDescription(request.getDescription());
         project.setProjectType(request.getProjectType());
         project.setInitializedAt(LocalDateTime.now());
         project.setUpdatedAt(LocalDateTime.now());
         project.setCosts(new ArrayList<>());
-        project.setAccounts(accountService.getByIds(request.getAccountsIds()));
+        List<Account> accounts = accountService.getByIds(request.getAccountsIds());
+        project.setAccounts(accounts);
 
         Project savedProject = repository.save(project);
 

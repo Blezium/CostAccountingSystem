@@ -1,6 +1,7 @@
 package com.cas.costaccountingsystem.services;
 
 import com.cas.costaccountingsystem.domains.Account;
+import com.cas.costaccountingsystem.domains.FullName;
 import com.cas.costaccountingsystem.dto.FullAccountDto;
 import com.cas.costaccountingsystem.mappers.AccountMapper;
 import com.cas.costaccountingsystem.mappers.FullNameMapper;
@@ -10,6 +11,7 @@ import com.cas.costaccountingsystem.request.AccountUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -23,14 +25,15 @@ public class AccountService {
 
     public FullAccountDto create(AccountCreationRequest request) {
         Account account = new Account();
+
         account.setNickname(request.getNickname());
-        account.setFullName(fullNameMapper.toDomain(request.getFullName()));
+        FullName fullName = fullNameMapper.toDomain(request.getFullName());
+        account.setFullName(fullName);
         account.setPassword(request.getPassword());
         account.setEmail(request.getEmail());
         account.setType(request.getType());
-        account.setInitializedAt(request.getInitializedAt());
+        account.setInitializedAt(LocalDateTime.now());
         account.setUpdatedAt(request.getUpdatedAt());
-        // add projects
         Account savedAccount = repository.save(account);
 
         return accountMapper.toDto(savedAccount);
@@ -44,9 +47,10 @@ public class AccountService {
         setIfNotNull(request.getPassword(), existingAccount::setPassword);
         setIfNotNull(request.getEmail(), existingAccount::setEmail);
         setIfNotNull(request.getType(), existingAccount::setType);
-        setIfNotNull(request.getUpdatedAt(), existingAccount::setUpdatedAt);
+        existingAccount.setUpdatedAt(LocalDateTime.now());
 
-        return accountMapper.toDto(repository.save(existingAccount));
+        Account savedAccount = repository.save(existingAccount);
+        return accountMapper.toDto(savedAccount);
     }
 
     public void deleteById(Long id) {
