@@ -57,7 +57,6 @@ public class AccountService {
             List<Project> projects = projectRepository.findAllById(projectIds);
             existingAccount.setProjects(projects);
         }
-
         Account savedAccount = accountRepository.save(existingAccount);
         return accountMapper.toDto(savedAccount);
     }
