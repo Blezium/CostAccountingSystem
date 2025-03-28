@@ -41,7 +41,7 @@ public class Project {
     private List<Account> accounts;
 
     @OneToMany(
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
             mappedBy = "project"
     )
